@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardContent, CardDescription,CardHeader, CardTitle,} from "@/components/ui/card"
 import Image from 'next/image'
 import chair from '../../public/chair.png'
-import vaseset from '../../public/vaseset.png'
+import vaseset from '../../public/VaseSet.png'
 import silkyvase from '../../public/silkyvase.png'
 import lucylamp from '../../public/lucylamp.png'
 import { Button } from './ui/button'
@@ -29,10 +29,10 @@ const NewCramics = () => {
 <Card className="h-full w-full max-w-sm border-none">
 <CardHeader >
     <div className="aspect-[3/4] relative overflow-hidden rounded-t-lg">
-      <Image src={vaseset} alt='Chair' className="object-cover" fill/>
+      <Image src={vaseset} alt='VaseSet' className="object-cover" fill/>
       </div>
       </CardHeader>
-<CardContent className="p-6">
+<CardContent className="p-6 ">
     <CardTitle className="line-clamp-1 font-thin">Rustic Vase Set</CardTitle>
     <CardDescription>£155</CardDescription>
 </CardContent>
