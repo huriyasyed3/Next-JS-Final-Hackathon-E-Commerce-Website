@@ -6,7 +6,8 @@ import vaseset from '../../public/VaseSet.png'
 import silkyvase from '../../public/silkyvase.png'
 import lucylamp from '../../public/lucylamp.png'
 import { Button } from './ui/button'
-
+import Link from 'next/link'
+import ProductListing from './ProductListing'
 const NewCramics = () => {
   return (
     <>
@@ -65,9 +66,10 @@ const NewCramics = () => {
 
 </div>
 <div className='flex justify-center'>
-  <Button className='bg-transparent bg-gray-200 mt-10 pl-8 pr-8 md:ml-10 lg:ml-20'>
+  <a href='ProductListing'><Button className='bg-transparent bg-gray-200 mt-10 pl-8 pr-8 md:ml-10 lg:ml-20'>
     View collection
   </Button>
+  </a>
 </div>
 
 
