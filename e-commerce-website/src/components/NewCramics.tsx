@@ -11,8 +11,8 @@ import ProductListing from './ProductListing'
 const NewCramics = () => {
   return (
     <>
-    <div className='container max-w-7xl mx-auto justify-between items-center mt-24    '>
-        <h1 className=' text-2xl md:text-xl lg:text-3xl font-thin'>New ceramics</h1>
+    <div className='container max-w-7xl mx-auto justify-between items-center md:mt-24 mt-20   '>
+        <h1 className=' text-2xl md:text-xl lg:text-3xl font-thin pl-6 text-[#2A254B]'>New ceramics</h1>
         <div className='grid grid-cols-2 md:grid-cols-4 gap-4 border-none '>
          <Card className="h-full w-full max-w-sm  border-none">
 <CardHeader >
