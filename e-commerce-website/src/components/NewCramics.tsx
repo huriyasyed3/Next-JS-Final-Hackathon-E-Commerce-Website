@@ -11,7 +11,7 @@ import ProductListing from './ProductListing'
 const NewCramics = () => {
   return (
     <>
-    <div className='container max-w-7xl mx-auto justify-between items-center md:mt-24 mt-20   '>
+    <div className='container max-w-7xl mx-auto justify-between items-center  mt-20   '>
         <h1 className=' text-2xl md:text-xl lg:text-3xl font-thin pl-6 text-[#2A254B]'>New ceramics</h1>
         <div className='grid grid-cols-2 md:grid-cols-4 gap-4 border-none '>
          <Card className="h-full w-full max-w-sm  border-none">
@@ -21,9 +21,9 @@ const NewCramics = () => {
       </div>
 </CardHeader>
 <CardContent className="p-6">
-    <CardTitle className="line-clamp-1 font-thin">The Dandy chair</CardTitle>
+    <CardTitle className="line-clamp-1 font-thin text-[#2A254B]">The Dandy chair</CardTitle>
 
-    <CardDescription>£250</CardDescription>
+    <CardDescription className='text-[#2A254B]'>£250</CardDescription>
 </CardContent>
 
 </Card>
@@ -34,8 +34,8 @@ const NewCramics = () => {
       </div>
       </CardHeader>
 <CardContent className="p-6 ">
-    <CardTitle className="line-clamp-1 font-thin">Rustic Vase Set</CardTitle>
-    <CardDescription>£155</CardDescription>
+    <CardTitle className="line-clamp-1 font-thin text-[#2A254B]">Rustic Vase Set</CardTitle>
+    <CardDescription className='text-[#2A254B]'>£155</CardDescription>
 </CardContent>
 </Card>
 
@@ -46,8 +46,8 @@ const NewCramics = () => {
       </div>
       </CardHeader>
 <CardContent className="p-6">
-    <CardTitle className="line-clamp-1 font-thin">The Silky Vase</CardTitle>
-    <CardDescription>£125</CardDescription>
+    <CardTitle className="line-clamp-1 font-thin text-[#2A254B]">The Silky Vase</CardTitle>
+    <CardDescription className='text-[#2A254B]'>£125</CardDescription>
 </CardContent>
 </Card>
 
@@ -58,17 +58,18 @@ const NewCramics = () => {
       </div>
       </CardHeader>
 <CardContent className="p-6">
-    <CardTitle className="line-clamp-1 font-thin">The Lucy Lamp</CardTitle>
-    <CardDescription>£399</CardDescription>
+    <CardTitle className="line-clamp-1 font-thin text-[#2A254B]">The Lucy Lamp</CardTitle>
+    <CardDescription className='text-[#2A254B]'>£399</CardDescription>
 </CardContent>
 </Card>
 </div>
 
 </div>
 <div className='flex justify-center'>
-  <a href='ProductListing'><Button className='bg-transparent bg-gray-200 mt-10 pl-8 pr-8 md:ml-10 lg:ml-20'>
-    View collection
-  </Button>
+  <a href='ProductListing'>
+  <Button className='bg-transparent bg-gray-100 mt-10  md:mt-28 pl-24 pr-24 md:pl-8 md:pr-8 md:ml-10 lg:ml-20 text-[#2A254B] '>
+            View collection
+          </Button>
   </a>
 </div>
 

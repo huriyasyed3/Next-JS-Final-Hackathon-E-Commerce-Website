@@ -4,30 +4,40 @@ import { Button } from './ui/button'
 
 const JoinClub = () => {
   return (
-    
-        <div className=' w-[1440px] h-[481px] mx-auto   mt-10 container max-w-full  justify-between items-center
-         border-gray-100 border-4 border-t-[52px]  border-l-[93px]  border-b-[52px]  border-r-[93px] md-flex  '>
-           <div className='w-[1273px] h-[364px] m-8'>
-           <div className='mx-auto items-center justify-between w-[571px] h-[114px]  gap-[16px] mt-14'>
-                <h1 className='font-thin text-[#2A254B] text-3xl text-center'>Join the club and get the benefits</h1>
-                <p className='text-center text-xl font-thin'>Sign up for our newsletter and receive exclusive offers on new ranges, sales, pop up stores and more</p>
-                <div className='mt-20  flex  mx-auto w-[470px] h-[56px] '>
-                <Input type='email' placeholder='your@email.com' className='text-gray-400  w-[354px] h-[56px] bg-gray-200'/>
-                <Button className='bg-[#2A254B] text-white font-thin w-[118px] h-[56px]'>Sign Up</Button>
-              </div>
-              </div>
-             
-              <div>
-
-              </div>
-           </div>
-             
+    <div className=" mt-10 container max-w-full  px-4 md:px-16 lg:px-24 w-[1440px] h-[481px]  md:border-4 md:border-gray-100
+     md:border-t-[52px] md:border-l-[93px] md:border-b-[52px] md:border-r-[93px]">
+      {/* Border on desktop */}
+      <div className="w-full mx-auto">
+        {/* Inner Content */}
+        <div className="max-w-6xl mx-auto py-8 md:py-12">
+          <div className="md:text-center space-y-6 md:px-4 md:w-[571px] md:h-[114px] mx-auto">
+            {/* Title */}
+            <h1 className="md:font-thin  text-[#2A254B] text-base font-semibold md:text-4xl">
+              Join the club and get the benefits
+            </h1>
+            {/* Description */}
+            <p className="text-gray-700 text-xs md:text-xl md:font-light font-semibold ">
+              Sign up for our newsletter and receive exclusive offers on new ranges, sales, pop-up stores, and more.
+            </p>
             </div>
-       
-   
-  )
-}
+            {/* Input Section */}
+            <div className=" md:mt-28 mt-12 flex flex-row justify-center items-center  w-full  ">
+              <Input
+                type="email"
+                placeholder="your@email.com"
+                className="text-gray-400 w-[224px] md:w-[350px] h-[56px] bg-gray-200"
+              />
+              <Button className="bg-[#2A254B] text-white font-light w-[118px] md:w-[118px] h-[56px] flex flex-row ">
+                Sign Up
+              </Button>
+            </div>
 
-export default JoinClub
 
+         
+        </div>
+      </div>
+    </div>
+  );
+};
 
+export default JoinClub;
