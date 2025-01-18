@@ -36,3 +36,4 @@ const Data =  ({info}:{info:Data}) => {
 }
 
 export default Data
+
