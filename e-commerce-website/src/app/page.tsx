@@ -9,7 +9,7 @@ import React from 'react'
 import Data from './data/data'
 const Home = async () => {
     
- const response = await fetch('https://6782b04bc51d092c3dd07634.mockapi.io/data')
+ const response = await fetch('https://hackathon-apis.vercel.app/api/products')
  const data = await response.json();  
  console.log(data);
  
