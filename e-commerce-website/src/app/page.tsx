@@ -6,29 +6,24 @@ import PopularProducts from '@/components/Popular-Products'
 import JoinClub from '@/components/join-club'
 import GetInTouch from '@/components/GetInTouch'
 import React from 'react'
+import  { useEffect, useState } from 'react';
+import { client } from '@/sanity/lib/client'
+import ProductsFetch from '@/components/productFetch'
 // import Data from './data/data'
-const Home = async () => {
-    
-//  const response = await fetch('https://hackathon-apis.vercel.app/api/products')
- 
-//  const data = await response.json();  
-//  console.log(data);
- 
+
+
+const Home=()=> {
   return (
-  
-   <div>
-      
-     {/* {data.map((info: Data) => ( }
-     <Data info={info} key={info.id} />
-   ))} */}
-      
-     
+ 
+
+<div>
    
 
  
   
     
     <HeroSection/>
+    <ProductsFetch/>
     <Brand/>
     <NewCramics/>
     <PopularProducts/>
