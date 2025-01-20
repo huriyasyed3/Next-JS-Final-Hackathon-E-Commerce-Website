@@ -71,10 +71,10 @@ const ProductsFetch : React.FC = () => {
               </p>
               {product.category && (
                 <p className="text-sm text-gray-600">
-                  Category: {product.category.name}
+                 <span className='font-bold'> Category:</span> {product.category.name}
                 </p>
                 )}
-              <Button className='bg-blue-400 text-white'
+              <Button className='bg-blue-400 text-white mt-2'
               >
                 Add to cart
               </Button>
