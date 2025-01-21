@@ -5,14 +5,34 @@ export const product = defineType({
     title: "Product",
     type: "document",
     fields: [
-        defineField({
-            name:"category",
-            title:"Category",
-            type:"reference",
-            to:[{
-                type:"category"
-            }]
-        }
+        defineField(
+            {
+                name: 'category',
+                title: 'Category',
+                type: 'string',
+                options: {
+                  list: [
+                    { title: 'Cutlery', value: 'cutlery' },
+                    { title: 'Decoration Items', value: 'decoration-items' },
+                    { title: 'Chairs', value: 'chairs' },
+                    { title: 'Tableware', value: 'tableware' },
+                    { title: 'Tables', value: 'tables' },
+                    // Add more categories as needed
+                  ],
+                  layout: 'dropdown', // Ensures it's displayed as a dropdown
+                },
+              },
+              
+
+        //     {
+        //     name:"category",
+        //     title:"Category",
+        //     type:"reference",
+        //     to:[{
+        //         type:"category"
+        //     }],
+            
+        // }
         ),
         defineField({
             name: "name",
@@ -78,3 +98,7 @@ export const product = defineType({
           }),
     ]
 })
+
+
+
+

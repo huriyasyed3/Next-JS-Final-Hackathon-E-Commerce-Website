@@ -8,6 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
+import TablewarePage from '@/app/Tableware/page'
 
 const HeaderSection = () => {
   return (
@@ -41,25 +42,25 @@ const HeaderSection = () => {
                 <SheetTitle className="text-xl font-bold">Avion</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col space-y-4">
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/PlantPots" className="text-gray-700 hover:text-black">
                   Plant Pots
                 </Link>
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/Ceramics" className="text-gray-700 hover:text-black">
                   Ceramics
                 </Link>
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/Tables" className="text-gray-700 hover:text-black">
                   Tables
                 </Link>
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/Chairs" className="text-gray-700 hover:text-black">
                   Chairs
                 </Link>
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/Crockery" className="text-gray-700 hover:text-black">
                   Crockery
                 </Link>
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/Tableware" className="text-gray-700 hover:text-black">
                   Tableware
                 </Link>
-                <Link href="/" className="text-gray-700 hover:text-black">
+                <Link href="/Cutlery" className="text-gray-700 hover:text-black">
                   Cutlery
                 </Link>
               </div>
@@ -71,25 +72,25 @@ const HeaderSection = () => {
       {/* Navbar Links for Desktop */}
       <nav className="hidden md:flex justify-center bg-white py-4 ">
         <div className="flex space-x-8">
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/PlantPots" className="text-gray-500 hover:text-black text-sm">
             Plant Pots
           </Link>
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/Ceramics" className="text-gray-500 hover:text-black text-sm">
             Ceramics
           </Link>
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/Tables" className="text-gray-500 hover:text-black text-sm">
             Tables
           </Link>
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/Chairs" className="text-gray-500 hover:text-black text-sm">
             Chairs
           </Link>
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/Crockery" className="text-gray-500 hover:text-black text-sm">
             Crockery
           </Link>
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/Tableware" className="text-gray-500 hover:text-black text-sm">
             Tableware
           </Link>
-          <Link href="/" className="text-gray-500 hover:text-black text-sm">
+          <Link href="/Cutlery" className="text-gray-500 hover:text-black text-sm">
             Cutlery
           </Link>
         </div>

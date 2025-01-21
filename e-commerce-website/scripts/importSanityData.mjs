@@ -40,12 +40,50 @@ async function uploadImageToSanity(imageUrl) {
 }
 
 /**
+ * Create or fetch a category in Sanity.
+ * @param {Object} category - The category object.
+ * @param {number} counter - Counter for unique IDs.
+ * @returns {Promise<string|null>} - Category ID or null on failure.
+ */
+async function createCategory(category, counter) {
+  try {
+    const categoryExist = await client.fetch(
+      `*[_type=="category" && slug.current==$slug][0]`,
+      { slug: category.slug }
+    );
+
+    if (categoryExist) {
+      return categoryExist._id;
+    }
+
+    const catObj = {
+      _type: "category",
+      _id: `${category.slug}-${counter}`,
+      name: category.name,
+      slug: {
+        _type: "slug",
+        current: category.slug,
+      },
+    };
+
+    const response = await client.createOrReplace(catObj);
+
+    console.log('✅ Category created successfully:', response);
+    return response._id;
+  } catch (error) {
+    console.error('❌ Failed to create category:', category.name, error);
+    return null;
+  }
+}
+
+/**
  * Import data into Sanity.
  */
 async function importData() {
   try {
     const response = await axios.get('https://hackathon-apis.vercel.app/api/products');
     const products = response.data;
+
     console.log(`✅ Fetched ${products.length} products from API.`);
 
     let counter = 1;
@@ -53,27 +91,32 @@ async function importData() {
     for (const product of products) {
       console.log(`🔄 Processing product: ${product.name}`);
       let imageRef = null;
+      let catRef = null;
 
       // Upload image
       if (product.image) {
         imageRef = await uploadImageToSanity(product.image);
       }
 
-      // Prepare the product object
+      // Create or fetch category
+      if (product.category && product.category.name) {
+        catRef = await createCategory(product.category, counter);
+      }
+
       const sanityProduct = {
-        _id: `product-${counter}`,
+        _id: `product-${counter}`, // Prefix the ID to ensure validity
         _type: 'product',
         name: product.name,
         slug: {
           _type: 'slug',
           current: slugify(product.name || 'default-product', {
-            lower: true,
-            strict: true,
+            lower: true, // Ensure the slug is lowercase
+            strict: true, // Remove special characters
           }),
         },
         price: product.price,
-        category: product.category
-          ? { _type: 'reference', _ref: slugify(product.category.name, { lower: true, strict: true }) }
+        category: catRef
+          ? { _type: 'reference', _ref: catRef }
           : undefined,
         tags: product.tags || [],
         quantity: 50,
@@ -86,23 +129,33 @@ async function importData() {
               },
             }
           : undefined,
-        description: product.description || 'Default product description.',
-        features: product.features || ['Feature 1', 'Feature 2', 'Feature 3'],
-        dimensions: product.dimensions || { height: '100cm', width: '50cm', depth: '30cm' },
+        description:
+          product.description ||
+          "A timeless design, with premium materials features as one of our most popular and iconic pieces. The dandy chair is perfect for any stylish living space with beech legs and lambskin leather upholstery.",
+        features: product.features || [
+          "Premium material",
+          "Handmade upholstery",
+          "Quality timeless classic",
+        ],
+        dimensions: product.dimensions || {
+          _type: 'dimensions', // Custom object type for dimensions
+          height: "110cm",
+          width: "75cm",
+          depth: "50cm",
+        },
       };
 
-      console.log('📤 Uploading to Sanity:', sanityProduct.name);
-
-      // Upload product
-      await client.createOrReplace(sanityProduct);
-      console.log(`✅ Product uploaded: ${sanityProduct.name}`);
-
       counter++;
+      console.log('Uploading product:', sanityProduct);
+
+      // Import data into Sanity
+      await client.createOrReplace(sanityProduct);
+      console.log(`✅ Imported product: ${sanityProduct.name}`);
     }
 
-    console.log('🎉 All products imported successfully!');
+    console.log('✅ Data import completed!');
   } catch (error) {
-    console.error('❌ Error during data import:', error.message);
+    console.error('❌ Error importing data:', error);
   }
 }
 
