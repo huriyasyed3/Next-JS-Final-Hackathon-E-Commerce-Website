@@ -1,25 +1,12 @@
 export interface Category {
+    toLowerCase: any;
     _id: string;
     name: string;
     slug: {
       current: string;
     };
     imageUrl?: string;
-  }
-  
-  export interface Style {
-    _id: string;
-    name: string;
-    slug: {
-      current: string;
-    };
-  }
-  
-  export interface Color {
-    _id: string;
-    name: string;
-  }
-  
+  }  
   export interface FAQ {
     question: string;
     answer: string;
@@ -32,23 +19,22 @@ export interface Category {
     createdAt: string;
     isVerified: boolean;
     customer?: {
-      name: string;
+     name: string;
       email: string;
     };
   }
   
   export interface Product {
+    [x: string]: SanityImageSource;
     _id: string;
     title: string;
     price: number;
     originalPrice?: number;
     rating: number;
     description: string;
-    images: string[];
-    colors: Color[];
+    image: string[];
     sizes: string[];
     category: Category;
-    style: Style;
     inventory: number;
     slug: {
       current: string;

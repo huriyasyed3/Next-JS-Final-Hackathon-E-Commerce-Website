@@ -2,6 +2,7 @@ export interface Product{
     id: string
     title: string
     slug: {
+      // _type:"slug"
       current: string
     }
     price: number

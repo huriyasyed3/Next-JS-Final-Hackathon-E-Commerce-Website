@@ -4,10 +4,11 @@ import { Button } from './ui/button'
 
 const JoinClub = () => {
   return (
-    <div className=" mt-10 container max-w-full  px-4 md:px-16 lg:px-24 w-[1440px] h-[481px]  md:border-4 md:border-gray-100
+    <div className='w-[1500px] h-[481px] '>
+    <div className=" mt-10 container max-w-full px-4 md:px-16 lg:px-24   md:border-4 md:border-gray-100
      md:border-t-[52px] md:border-l-[93px] md:border-b-[52px] md:border-r-[93px]">
       {/* Border on desktop */}
-      <div className="w-full mx-auto">
+      <div className="mx-auto">
         {/* Inner Content */}
         <div className="max-w-6xl mx-auto py-8 md:py-12">
           <div className="md:text-center space-y-6 md:px-4 md:w-[571px] md:h-[114px] mx-auto">
@@ -33,7 +34,7 @@ const JoinClub = () => {
             </div>
 
 
-         
+            </div>
         </div>
       </div>
     </div>

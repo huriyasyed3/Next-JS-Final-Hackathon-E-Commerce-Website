@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
+import LoadingComponent from './ui/LoadingAnimation';
 
 // Define the Product interface
 interface Product {
+  id: string;
   category: string | null;
   name: string;
   price: number;
@@ -21,6 +23,7 @@ export default function CategoryPage({ categoryName }: { categoryName: string })
   useEffect(() => {
     async function fetchData() {
       const query = `*[_type == "product"]{
+       "id":_id,
         "imageUrl": image.asset->url,
         price,
         "slug": slug.current,
@@ -43,7 +46,7 @@ export default function CategoryPage({ categoryName }: { categoryName: string })
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><LoadingComponent/></div>;
   }
 
   return (
@@ -61,12 +64,14 @@ export default function CategoryPage({ categoryName }: { categoryName: string })
             >
               <Link href={`/products/${product.slug}`}>
                 <div className="relative w-full h-48">
+                <Link href={`/ProductDetailPage/${product.id}`}>
                   <Image
                     src={product.imageUrl || '/placeholder-image.png'}
                     alt={product.name || 'Product Image'}
                     layout="fill"
                     objectFit="cover"
                   />
+                  </Link>
                 </div>
               </Link>
               <div className="p-4">
@@ -79,4 +84,5 @@ export default function CategoryPage({ categoryName }: { categoryName: string })
     </div>
   );
 }
+
 

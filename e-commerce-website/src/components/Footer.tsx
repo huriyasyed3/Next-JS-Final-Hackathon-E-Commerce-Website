@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import React from 'react';
 import { FaLinkedin, FaInstagram, FaFacebookSquare, FaTwitter, FaPinterest } from "react-icons/fa";
@@ -6,7 +7,7 @@ import { IoLogoSkype } from "react-icons/io";
 const Footer = () => {
   return (
     <>
-      <div className='px-6 md:px-12 py-12 bg-[#2A254B] mt-12'>
+      <div className='px-6 md:px-12 py-12 bg-[#2A254B] '>
         <div className="flex flex-wrap gap-12 md:gap-[100px] lg:gap-[200px]">
           {/* Menu Section */}
           <div className="text-white w-full sm:w-auto">
@@ -21,14 +22,14 @@ const Footer = () => {
           </div>
 
           {/* Categories Section */}
-          <div className="text-white w-full sm:w-auto">
+          <div className="text-white w-full sm:w-auto hidden sm:block">
             <h1 className="text-lg md:text-xl font-bold">Categories</h1>
             <div className='space-y-2'>
-              <h1><Link href={'/'}>Crockery</Link></h1>
+              <h1><Link href={'/Crockery'}>Crockery</Link></h1>
               <h1><Link href={'/'}>Furniture</Link></h1>
-              <h1><Link href={'/'}>Homeware</Link></h1>
-              <h1><Link href={'/'}>Plant pots</Link></h1>
-              <h1><Link href={'/'}>Chairs</Link></h1>
+              <h1><Link href={'/Ceramics'}>Homeware</Link></h1>
+              <h1><Link href={'/PlantPots'}>Plant pots</Link></h1>
+              <h1><Link href={'/Chairs'}>Chairs</Link></h1>
             </div>
           </div>
 
@@ -45,17 +46,19 @@ const Footer = () => {
           </div>
 
           {/* Mailing List Section */}
-          <div className="text-white w-full sm:w-auto">
-            <h1 className="text-lg md:text-xl font-bold">Join our mailing list</h1>
-            <div className='mt-4'>
+          <div className="text-white w-full sm:w-auto hidden sm:block">
+            <h1 className="text-lg md:text-xl font-normal">Join our mailing list</h1>
+            <div className='mt-4 '>
               <input
                 type="text"
                 placeholder="your@email.com"
                 className='w-full sm:w-[250px] lg:w-[300px] h-[48px] p-2 bg-transparent opacity-35 border border-white rounded-md'
               />
-              <button className='mt-2 sm:mt-0 sm:ml-2 w-full sm:w-[100px] h-[48px] bg-gray-300 text-[#2A254B] rounded-md'>
+              <Link href={'/'}>
+              <button className='mt-2  w-full sm:w-[100px] h-[48px] bg-gray-300 text-[#2A254B] rounded-md'>
                 Sign up
               </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -68,12 +71,12 @@ const Footer = () => {
             <h1>Copyright 2022 Avion LTD</h1>
           </div>
           <div className='flex gap-4'>
-            <Link href={'/'}><FaLinkedin size={20} /></Link>
-            <Link href={'/'}><FaFacebookSquare size={20} /></Link>
-            <Link href={'/'}><FaInstagram size={20} /></Link>
+            <Link href={'https://www.linkedin.com/in/huriya-syed-598371281/'}><FaLinkedin size={20} /></Link>
+            <Link href={'https://www.facebook.com/profile.php?id=61554432573128&mibextid=ZbWKwL'}><FaFacebookSquare size={20} /></Link>
+            <Link href={'https://www.instagram.com/huriya_syed3/'}><FaInstagram size={20} /></Link>
             <Link href={'/'}><IoLogoSkype size={20} /></Link>
-            <Link href={'/'}><FaTwitter size={20} /></Link>
-            <Link href={'/'}><FaPinterest size={20} /></Link>
+            <Link href={'https://x.com/Huriya_syed143'}><FaTwitter size={20} /></Link>
+            <Link href={'https://www.pinterest.com/'}><FaPinterest size={20} /></Link>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Lottie from "lottie-react";
 import loadingAnimation from "../../../public/loading-animation.json"; // File ka path

@@ -1,10 +1,15 @@
+'use client'
 import React from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image'
 import chair from '../../public/chair.png'
-import { Link } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const HeroSection = () => {
+  const router = useRouter()
+  const handleFucn = () => {
+    router.push("/AllProductsCollection")
+  }
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8">
       {/* Hero Section */}
@@ -14,11 +19,14 @@ const HeroSection = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4">
             The furniture brand for the future, with timeless designs
           </h2>
-          {/* <Link href={'./components/productFetch'}> */}
-          <Button className="order-2 lg:order-1 bg-gray-500 hover:bg-gray-400 text-white mt-6 px-6 py-3 rounded-md">
+         
+          <Button  className="order-2 lg:order-1 bg-gray-500 hover:bg-gray-400 text-white mt-6 px-6 
+          py-3 rounded-md"
+          onClick={handleFucn}
+          >
             View Collection
           </Button>
-          {/* </Link> */}
+          
           <div  className=' order-1 lg:order-2 md:pt-48'>
          <p className="mt-8 text-sm md:text-base lg:text-lg leading-relaxed">
             A new era in eco-friendly furniture with Avion, the French luxury retail brand

@@ -1,37 +1,3 @@
-// import { defineType,defineField } from "sanity";
-
-// export const Category = defineType({
-//     name: "category",
-//     title: "Category",
-//     type: "document",
-//     fields:[
-//         defineField({
-//             name: "name",
-//             title: "Name",
-//             type: "string",
-//             validation: (rule) => rule.required(),
-//         }),
-//         defineField(
-//             {
-//                 name: 'description',
-//                 title: 'Description',
-//                 type: 'text',
-//                 validation: (rule) => rule.required(),
-//               }),
-//         defineField({
-//             name: "slug",
-//             title: "Slug",
-//             type: "slug",
-//             validation: (rule) => rule.required(),
-//             options: {
-//                 source: "name",
-//             }
-//         })
-//     ]
-// })
-
-
-
 import { defineType, defineField } from "sanity";
 
 export const Category = defineType({
@@ -46,9 +12,9 @@ export const Category = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
+      name: "description",
+      title: "Description",
+      type: "text",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -58,7 +24,8 @@ export const Category = defineType({
       validation: (rule) => rule.required(),
       options: {
         source: "name",
-      }
-    })
-  ]
-})
+        maxLength: 96,
+      },
+    }),
+  ],
+});
