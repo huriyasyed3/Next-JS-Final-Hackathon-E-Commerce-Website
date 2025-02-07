@@ -3,10 +3,9 @@ import { shipengine } from "../../../../../lib/helper/shipEngine";
 
 export async function GET(
   req: NextRequest,
-  { params }: {
-  params: Promise<{ labelId: string }>
-}) {
-  const labelId = (await params).labelId;
+  { params }: { params: { labelId: string } } // ✅ Fixed Params
+) {
+  const labelId = params.labelId; 
   if (!labelId) {
     return new Response(JSON.stringify({ error: "Missing required fields" }), {
       status: 400,
@@ -16,13 +15,15 @@ export async function GET(
   try {
     const label = await shipengine.trackUsingLabelId(labelId);
 
-    console.log(label);
+    console.log("Tracking Data:", label); // ✅ Debugging
 
     return NextResponse.json(label, { status: 200 });
   } catch (error) {
-    console.log(error);
-    return new Response(JSON.stringify({ error: error }), {
-      status: 500,
-    });
+    console.error("ShipEngine API Error:", error);
+
+    return new Response(
+      JSON.stringify({ error: error instanceof Error ? error.message : "Something went wrong" }), 
+      { status: 500 }
+    );
   }
 }
