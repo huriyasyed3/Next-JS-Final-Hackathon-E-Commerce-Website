@@ -1,73 +1,21 @@
-// "use client";
-// import { useSearchParams } from "next/navigation";
-// import { useEffect, useState } from "react";
-// import { motion } from "framer-motion";
-
-// export default function OrderConfirmation() {
-//   const searchParams = useSearchParams();
-//   const sessionId = searchParams.get("session_id");
-//   const [loading, setLoading] = useState(true);
-  
-
-//   useEffect(() => {
-    
-//     if (sessionId) {
-//       setTimeout(() => setLoading(false), 2000); // Simulate a delay for UX
-//     }
-//   }, [sessionId]);
-
-//   return (
-//     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-//       <motion.div 
-//         className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md text-center"
-//         initial={{ opacity: 0, scale: 0.8 }}
-//         animate={{ opacity: 1, scale: 1 }}
-//         transition={{ duration: 0.5 }}
-//       >
-//         {loading ? (
-//           <div className="flex flex-col items-center">
-//             <div className="animate-spin rounded-full border-t-4 border-green-500 border-solid h-16 w-16 mb-4"></div>
-//             <h1 className="text-xl font-semibold text-gray-700">Verifying your payment...</h1>
-//           </div>
-//         ) : (
-//           <motion.div
-//             initial={{ scale: 0.8, opacity: 0 }}
-//             animate={{ scale: 1, opacity: 1 }}
-//             transition={{ delay: 0.2 }}
-//           >
-//             <h1 className="text-2xl font-bold text-green-600">🎉 Order Placed Successfully! 🎉</h1>
-//             <p className="text-gray-600 mt-2">Thank you for your purchase.</p>
-//             <motion.div
-//               className="mt-4"
-//               initial={{ opacity: 0, y: -10 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               transition={{ delay: 0.4 }}
-//             >
-//               <a
-//                 href="/"
-//                 className="mt-4 inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition"
-//               >
-//                 Back to Home
-//               </a>
-//             </motion.div>
-//           </motion.div>
-//         )}
-//       </motion.div>
-//     </div>
-//   );
-// }
-
-
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+interface Rate {
+  rate_id: string;
+  service_type: string;
+  shipping_amount: {
+    amount: number;
+  };
+}
+
 export default function OrderConfirmation() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
-  const [loading, setLoading] = useState(true);
-  const [rates, setRates] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [rates, setRates] = useState<Rate[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -119,8 +67,12 @@ export default function OrderConfirmation() {
 
       const data = await response.json();
       setRates(data.rate_response?.rates || []);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     }
   };
 

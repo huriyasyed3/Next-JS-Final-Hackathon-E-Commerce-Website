@@ -11,22 +11,65 @@ const shipengineClient = axios.create({
   },
 });
 
-export const getRates = async (shipmentDetails: any) => {
+// Define types for shipment details and label details
+interface ShipmentDetails {
+  shipment: {
+    carrier_id: string;
+    service_code: string;
+    ship_to: {
+      name: string;
+      address_line1: string;
+      city_locality: string;
+      state_province: string;
+      postal_code: string;
+      country_code: string;
+    };
+    ship_from: {
+      name: string;
+      address_line1: string;
+      city_locality: string;
+      state_province: string;
+      postal_code: string;
+      country_code: string;
+    };
+    packages: {
+      weight: {
+        value: number;
+        unit: string;
+      };
+    }[];
+  };
+}
+
+interface LabelDetails {
+  shipment_id: string;
+  label_format?: 'pdf' | 'png' | 'zpl'; // Optional label format
+}
+
+export const getRates = async (shipmentDetails: ShipmentDetails) => {
   try {
     const response = await shipengineClient.post('/rates', shipmentDetails);
     return response.data;
-  } catch (error:any) {
-    console.error('Error fetching rates:', error.response?.data || error.message);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error fetching rates:', error.response?.data || error.message);
+    } else {
+      console.error('Unexpected error:', error);
+    }
     throw error;
   }
 };
 
-export const createLabel = async (labelDetails: any) => {
+export const createLabel = async (labelDetails: LabelDetails) => {
   try {
     const response = await shipengineClient.post('/labels', labelDetails);
     return response.data;
-  } catch (error:any) {
-    console.error('Error creating label:', error.response?.data || error.message);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error creating label:', error.response?.data || error.message);
+    } else {
+      console.error('Unexpected error:', error);
+    }
     throw error;
   }
 };

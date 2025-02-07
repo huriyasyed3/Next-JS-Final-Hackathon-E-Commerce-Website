@@ -1,25 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
+// Initialize Stripe with API key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2025-01-27.acacia", // Use the latest version
 });
 
+// Define TypeScript interface for cart items
+interface CartItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { cartItems } = await req.json();
+    const body = await req.json();
+    
+    // Ensure cartItems is an array
+    if (!Array.isArray(body.cartItems)) {
+      return NextResponse.json({ error: "Invalid cart items" }, { status: 400 });
+    }
 
-    const lineItems = cartItems.map((item: any) => ({
+    // Map cart items to Stripe's format
+    const lineItems = body.cartItems.map((item: CartItem) => ({
       price_data: {
         currency: "usd",
         product_data: {
           name: item.name,
         },
-        unit_amount: item.price * 100, // Stripe price in cents
+        unit_amount: item.price * 100, // Convert dollars to cents
       },
       quantity: item.quantity,
     }));
 
+    // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
@@ -36,5 +51,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
   }
 }
-
-

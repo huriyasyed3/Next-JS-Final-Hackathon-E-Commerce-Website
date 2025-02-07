@@ -19,7 +19,7 @@ const Service = () => {
         </div>
         <div className='max-w-lg items-center justify-between md:m-28 m-3 '>
           <h1 className='text-[#2A254B] md:text-3xl font-thin text-xl'>
-            Our service isn't just personal, it's actually hyper personally exquisite
+            Our service isn&apos;t just personal, it&apos;s actually hyper personally exquisite
           </h1>
           <p className='pt-4 text-[#2A254B]'>
             When we started Avion, the idea was simple. Make high

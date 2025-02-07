@@ -11,13 +11,6 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState<Product[]>([])
-  const [shippingInfo, setShippingInfo] = useState({
-    name: '',
-    address: '',
-    city: '',
-    country: '',
-    postalCode: ''
-  })
   const [paymentInfo, setPaymentInfo] = useState({
     cardNumber: '',
     cardName: '',
@@ -50,10 +43,6 @@ export default function Checkout() {
       Swal.fire("Error", "Payment processing failed", "error");
     }
   };
-
-  const handleShippingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value })
-  }
 
   const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value })

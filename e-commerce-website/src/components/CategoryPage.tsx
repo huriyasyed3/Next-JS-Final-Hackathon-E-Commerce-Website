@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import LoadingComponent from './ui/LoadingAnimation';
+import ReviewsAndRatings from './Reviews&Ratings';
 
 // Define the Product interface
 interface Product {
@@ -81,6 +82,7 @@ export default function CategoryPage({ categoryName }: { categoryName: string })
             </div>
           ))}
       </div>
+      <ReviewsAndRatings/>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export interface Category {
     toLowerCase: any;
     _id: string;
@@ -25,26 +27,38 @@ export interface Category {
   }
   
   export interface Product {
-    [x: string]: SanityImageSource;
+    imageUrl: string;
+    id: Key | null | undefined;
+    name: string;
+    dimensions: any;
+    quantity: number;
+    features: any;
+    // [x:string]: SanityImageSource;
+    SanityImageSource:
+    | string
+    // | SanityReference
+    // | SanityImageAsset
+    // | SanityAssetIdStub
+    // | SanityAssetUrlStub
+    // | SanityAssetPathStub
+    // | SanityImageObjectStub
     _id: string;
     title: string;
     price: number;
-    originalPrice?: number;
-    rating: number;
+    // originalPrice?: number;
+    // rating: number;
     description: string;
     image: string[];
     sizes: string[];
     category: Category;
-    inventory: number;
+    // inventory: number;
     slug: {
       current: string;
     };
     productDetails: string[];
-    faqs: FAQ[];
-    isNewArrival?: boolean;
-    isTopSelling?: boolean;
     tags?: string[];
-    createdAt: string;
-    reviews: Review[];
+    
   }
   
+
+

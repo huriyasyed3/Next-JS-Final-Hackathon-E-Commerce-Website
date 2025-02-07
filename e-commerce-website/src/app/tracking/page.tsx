@@ -1,9 +1,9 @@
-"use client";
-
-import { useState, useEffect, Suspense } from "react";
+'use client'
+import { useState, useEffect, useCallback, Suspense } from "react";
 import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { TrackingData } from "../../../type";
+import LoadingComponent from "@/components/ui/LoadingAnimation";
 
 function TrackShipment() {
   const [labelId, setLabelId] = useState(""); 
@@ -15,14 +15,8 @@ function TrackShipment() {
   const router = useRouter();
   const queryLabelId = searchParams?.get("labelId") || ""; 
 
-  useEffect(() => {
-    if (queryLabelId) {
-      setLabelId(queryLabelId); 
-      handleSubmit(queryLabelId); 
-    }
-  }, [queryLabelId]);
-
-  const handleSubmit = async (labelId: string) => {
+  // ✅ Wrap handleSubmit with useCallback to prevent unnecessary re-renders
+  const handleSubmit = useCallback(async (labelId: string) => {
     if (!labelId) {
       setError("Label ID is required.");
       return;
@@ -42,7 +36,15 @@ function TrackShipment() {
     } finally {
       setLoading(false); 
     }
-  };
+  }, [router]); // ✅ Memoized dependency is only `router`
+
+  // ✅ Now it's safe to add `handleSubmit` to dependencies
+  useEffect(() => {
+    if (queryLabelId) {
+      setLabelId(queryLabelId);
+      handleSubmit(queryLabelId);
+    }
+  }, [queryLabelId, handleSubmit]); 
 
   return (
       <div className="min-h-screen bg-gray-100 py-8 text-black">
@@ -117,9 +119,9 @@ function TrackShipment() {
   );
 }
 
-export default function TrackingPage (){
+export default function TrackingPage () {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div><LoadingComponent/></div>}>
       <TrackShipment />
     </Suspense>
   );

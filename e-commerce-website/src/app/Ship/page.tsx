@@ -5,9 +5,8 @@ import { Address, Rate, trackingObjType } from "../../../type";
 import { cartProductsWhichCanBeShipped } from "../../../data";
 import Link from "next/link";
 
-
 const ShippingRatesPage = () => {
-  const [shipeToAddress, setshipeToAddress] = useState<Address>({
+  const [shipeToAddress, setShipeToAddress] = useState<Address>({
     name: "John Doe",
     phone: "+1 555-678-1234",
     addressLine1: "1600 Pennsylvania Avenue NW",
@@ -20,10 +19,10 @@ const ShippingRatesPage = () => {
   });
 
   const [rates, setRates] = useState<Rate[]>([]);
-  const [rateId, setrateId] = useState<string | null>(null);
+  const [rateId, setRateId] = useState<string | null>(null);
   const [labelPdf, setLabelPdf] = useState<string | null>(null);
   const [trackingObj, setTrackingObj] = useState<trackingObjType | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +42,7 @@ const ShippingRatesPage = () => {
       console.log(response.data);
       setRates(response.data.shipmentDetails.rateResponse.rates);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setErrors(["An error occurred while fetching rates."]);
     } finally {
       setLoading(false);
@@ -71,7 +70,7 @@ const ShippingRatesPage = () => {
         carrierCode: labelData.carrierCode,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setErrors(["An error occurred while creating the label."]);
     } finally {
       setLoading(false);
@@ -98,7 +97,7 @@ const ShippingRatesPage = () => {
                 placeholder="Name"
                 value={shipeToAddress.name}
                 onChange={(e) =>
-                  setshipeToAddress({ ...shipeToAddress, name: e.target.value })
+                  setShipeToAddress({ ...shipeToAddress, name: e.target.value })
                 }
                 className="p-2 border border-gray-300 rounded-md"
                 required
@@ -108,7 +107,7 @@ const ShippingRatesPage = () => {
                 placeholder="Phone"
                 value={shipeToAddress.phone}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     phone: e.target.value,
                   })
@@ -121,7 +120,7 @@ const ShippingRatesPage = () => {
                 placeholder="Address Line 1"
                 value={shipeToAddress.addressLine1}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     addressLine1: e.target.value,
                   })
@@ -134,7 +133,7 @@ const ShippingRatesPage = () => {
                 placeholder="Address Line 2"
                 value={shipeToAddress.addressLine2}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     addressLine2: e.target.value,
                   })
@@ -146,7 +145,7 @@ const ShippingRatesPage = () => {
                 placeholder="City"
                 value={shipeToAddress.cityLocality}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     cityLocality: e.target.value,
                   })
@@ -159,7 +158,7 @@ const ShippingRatesPage = () => {
                 placeholder="State/Province"
                 value={shipeToAddress.stateProvince}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     stateProvince: e.target.value,
                   })
@@ -172,7 +171,7 @@ const ShippingRatesPage = () => {
                 placeholder="Postal Code"
                 value={shipeToAddress.postalCode}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     postalCode: e.target.value,
                   })
@@ -185,7 +184,7 @@ const ShippingRatesPage = () => {
                 placeholder="Country Code (e.g., PK)"
                 value={shipeToAddress.countryCode}
                 onChange={(e) =>
-                  setshipeToAddress({
+                  setShipeToAddress({
                     ...shipeToAddress,
                     countryCode: e.target.value,
                   })
@@ -221,14 +220,14 @@ const ShippingRatesPage = () => {
                       ? "border-blue-500 bg-blue-100"
                       : "border-gray-200 bg-gray-50"
                   }`}
-                  onClick={() => setrateId(rate.rateId)}
+                  onClick={() => setRateId(rate.rateId)}
                 >
                   <div className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="shippingRate"
                       checked={rateId === rate.rateId}
-                      onChange={() => setrateId(rate.rateId)}
+                      onChange={() => setRateId(rate.rateId)}
                       className="form-radio h-4 w-4 text-blue-500"
                     />
                     <div>
@@ -263,18 +262,24 @@ const ShippingRatesPage = () => {
           </div>
         )}
         {labelPdf && (
-         <Link target="_blank" href={labelPdf}> <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Download Label</button></Link>
+          <Link target="_blank" href={labelPdf}>
+            <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+              Download Label
+            </button>
+          </Link>
         )}
         {trackingObj && (
           <div className="mt-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Tracking thinks (We are using ShipEngine test api key so order will not trace)
+              Tracking Details (Note: Using ShipEngine test API key)
             </h2>
-            <p>tracking number: {trackingObj.trackingNumber}</p>
-            <p> labelId: {trackingObj.labelId}</p>
-            <p> carrierCode: {trackingObj.carrierCode}</p>
+            <p>Tracking number: {trackingObj.trackingNumber}</p>
+            <p>Label ID: {trackingObj.labelId}</p>
+            <p>Carrier Code: {trackingObj.carrierCode}</p>
             <Link href={`/tracking/?labelId=${trackingObj.labelId}`}>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Track Order</button>
+              <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                Track Order
+              </button>
             </Link>
           </div>
         )}
@@ -282,7 +287,7 @@ const ShippingRatesPage = () => {
           <div className="mt-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Errors</h2>
             <div className="space-y-2">
-              {errors.map((error:any, index:any) => (
+              {errors.map((error, index) => (
                 <p key={index} className="text-red-500">
                   {error}
                 </p>
@@ -296,5 +301,3 @@ const ShippingRatesPage = () => {
 };
 
 export default ShippingRatesPage;
-
-
