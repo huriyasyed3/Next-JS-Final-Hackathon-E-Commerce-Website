@@ -6,11 +6,6 @@ import JoinClub from '@/components/join-club'
 import GetInTouch from '@/components/GetInTouch'
 import React from 'react'
 import ReviewsAndRatings from '@/components/Reviews&Ratings'
-import ShippingRatesPage from './Ship/page'
-
-
-
-
 
 const Home = () => {
   return (
@@ -23,7 +18,7 @@ const Home = () => {
     <JoinClub/>
     <GetInTouch/>
     <ReviewsAndRatings/>
-   <ShippingRatesPage/>
+   
    
     </div>
     
