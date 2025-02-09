@@ -18,7 +18,7 @@ interface Product {
   category: string;
   name: string;
   price: number;
-  slug?: string;  // <- Make it optional
+  slug?: string;
   imageUrl: string;
 }
 
@@ -28,7 +28,7 @@ export default function ProductsFetch() {
   const [wishlist, setWishList] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Adjust this value as needed
+  const itemsPerPage = 8;
   const router = useRouter();
 
   useEffect(() => {
@@ -51,13 +51,17 @@ export default function ProductsFetch() {
       } finally {
         setLoading(false);
       }
-
-      // Wishlist Sync from Local Storage
-      const savedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-      setWishList(savedWishlist);
     };
 
     fetchData();
+  }, []);
+
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      setWishList(savedWishlist);
+    }
   }, []);
 
   const applyDiscount = (price: number) => {
@@ -65,25 +69,29 @@ export default function ProductsFetch() {
   };
 
   const toggleWishlist = (product: Product) => {
-    const updatedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    if (typeof window !== "undefined") {
+      const updatedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
 
-    const existingIndex = updatedWishlist.findIndex((item: Product) => item.id === product.id);
+      const existingIndex = updatedWishlist.findIndex((item: Product) => item.id === product.id);
 
-    if (existingIndex !== -1) {
-      updatedWishlist.splice(existingIndex, 1);
-    } else {
-      updatedWishlist.push(product);
+      if (existingIndex !== -1) {
+        updatedWishlist.splice(existingIndex, 1);
+      } else {
+        updatedWishlist.push(product);
+      }
+
+      setWishList(updatedWishlist);
+      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     }
-
-    setWishList(updatedWishlist);
-    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
   };
 
   const handleAddToCart = (product: Product) => {
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const updatedCart = [...existingCart, product];
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    router.push('/CartComponent');
+    if (typeof window !== "undefined") {
+      const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const updatedCart = [...existingCart, product];
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      router.push('/CartComponent');
+    }
   };
 
   // Pagination logic
@@ -93,7 +101,10 @@ export default function ProductsFetch() {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-    window.scrollTo(0, 0);
+  
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
 
   if (loading) {
@@ -170,3 +181,6 @@ export default function ProductsFetch() {
     </div>
   );
 }
+
+
+
