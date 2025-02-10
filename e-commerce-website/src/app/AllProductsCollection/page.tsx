@@ -1,18 +1,20 @@
 'use client';
+
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { client } from '@/sanity/lib/client';
-import SearchAndFilter from '../../components/SearchAndFilter';
-import LoadingComponent from '../../components/ui/LoadingAnimation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Button } from '../../components/ui/button';
 import { useRouter } from 'next/navigation';
 import { FiHeart } from 'react-icons/fi';
+import Image from 'next/image';
+import Link from 'next/link';
 import allProductImg from '../../../public/Product.png';
-import Pagination from '@/components/Pagination';
-import ReviewsAndRatings from '@/components/Reviews&Ratings';
 
-// Define the Product interface
+// ✅ Dynamic Imports
+const SearchAndFilter = dynamic(() => import('@/components/SearchAndFilter'));
+const LoadingComponent = dynamic(() => import('@/components/ui/LoadingAnimation'));
+const Pagination = dynamic(() => import('@/components/Pagination'));
+const ReviewsAndRatings = dynamic(() => import('@/components/Reviews&Ratings'));
+
 interface Product {
   id: string;
   category: string;
@@ -22,7 +24,7 @@ interface Product {
   imageUrl: string;
 }
 
-export default function ProductsFetch() {
+export default function ProductsFetchPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [wishlist, setWishList] = useState<Product[]>([]);
@@ -31,10 +33,11 @@ export default function ProductsFetch() {
   const itemsPerPage = 8;
   const router = useRouter();
 
+  // ✅ Fetch Products from Sanity API
   useEffect(() => {
     const fetchData = async () => {
       const query = `*[_type == "product"]{
-        "id":_id,
+        "id": _id,
         "imageUrl": image.asset->url,
         price,
         "slug": slug.current,
@@ -56,55 +59,65 @@ export default function ProductsFetch() {
     fetchData();
   }, []);
 
-  
+  // ✅ Wishlist Handling (Local Storage)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    if (typeof window !== 'undefined') {
+      const savedWishlist = JSON.parse(window.localStorage.getItem('wishlist') || '[]');
       setWishList(savedWishlist);
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+  }, [wishlist]);
+
+  // ✅ Scroll to Top on Page Change
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  }, [currentPage]);
+
+  // ✅ Apply Discount
   const applyDiscount = (price: number) => {
     return (price * 0.9).toFixed(2);
   };
 
+  // ✅ Wishlist Toggle
   const toggleWishlist = (product: Product) => {
-    if (typeof window !== "undefined") {
-      const updatedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-
-      const existingIndex = updatedWishlist.findIndex((item: Product) => item.id === product.id);
-
+    setWishList((prevWishlist) => {
+      const updatedWishlist = [...prevWishlist];
+      const existingIndex = updatedWishlist.findIndex((item) => item.id === product.id);
       if (existingIndex !== -1) {
         updatedWishlist.splice(existingIndex, 1);
       } else {
         updatedWishlist.push(product);
       }
-
-      setWishList(updatedWishlist);
-      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-    }
+      return updatedWishlist;
+    });
   };
 
+  // ✅ Add to Cart & Redirect
   const handleAddToCart = (product: Product) => {
-    if (typeof window !== "undefined") {
-      const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const updatedCart = [...existingCart, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      router.push('/CartComponent');
-    }
+    setWishList((prevCart) => {
+      const updatedCart = [...prevCart, product];
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+      }
+      return updatedCart;
+    });
+    router.push('/CartComponent');
   };
 
-  // Pagination logic
+  // ✅ Pagination Logic
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-  
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
   };
 
   if (loading) {
@@ -124,10 +137,8 @@ export default function ProductsFetch() {
         </h1>
       </div>
 
-      {/* Search and Filter */}
       <SearchAndFilter setFilteredProducts={setFilteredProducts} products={products} />
 
-      {/* Display Products */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {currentProducts.map((product) => (
           <div
@@ -149,14 +160,14 @@ export default function ProductsFetch() {
               <p className="text-gray-700 mt-2">Price: €{applyDiscount(product.price)}</p>
 
               <div className="flex items-center space-x-4 mt-2">
-                <Button
-                  className="bg-gradient-to-r from-purple-900 to-pink-500 text-white rounded-lg transition-transform shadow-md duration-300 hover:scale-110"
+                <button
+                  className="bg-gradient-to-r from-purple-900 to-pink-500 text-white rounded-lg transition-transform shadow-md duration-300 hover:scale-110 px-4 py-2"
                   onClick={() => handleAddToCart(product)}
                 >
                   Add to cart
-                </Button>
+                </button>
 
-                <Button
+                <button
                   className="p-2 rounded-full bg-transparent hover:scale-110 transition-transform duration-200"
                   onClick={() => toggleWishlist(product)}
                 >
@@ -165,12 +176,13 @@ export default function ProductsFetch() {
                       wishlist.some((item) => item.id === product.id) ? 'text-red-500' : 'text-gray-400'
                     }`}
                   />
-                </Button>
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
+
       <Pagination
         totalItems={filteredProducts.length}
         itemsPerPage={itemsPerPage}
@@ -181,6 +193,3 @@ export default function ProductsFetch() {
     </div>
   );
 }
-
-
-

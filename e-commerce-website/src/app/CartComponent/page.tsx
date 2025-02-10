@@ -91,7 +91,11 @@ const Cart = () => {
           <ul>
             {cartItems.map((product, index) => (
               <li key={index} className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
-                <Image src={product.imageUrl || '/placeholder-image.png'} alt={product.name} className="w-16 h-16 object-cover rounded-md" />
+                <Image src={product.imageUrl || '/placeholder-image.png'}
+                 alt={product.name} 
+                 width={500} // Adjust width
+  height={500} // Adjust height
+                 className="w-16 h-16 object-cover rounded-md" />
                 <div>
                   <h2 className="text-xl font-semibold text-gray-800">{product.name}</h2>
                   <p className="text-gray-500">Price: ${product.price}</p>
