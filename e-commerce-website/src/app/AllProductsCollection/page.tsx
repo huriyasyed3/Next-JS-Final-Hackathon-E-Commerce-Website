@@ -150,8 +150,11 @@ export default function ProductsFetchPage() {
                 <Image
                   src={product.imageUrl || '/placeholder-image.png'}
                   alt={product.name || 'Product Image'}
-                  layout="fill"
-                  objectFit="cover"
+                  priority
+                  width={500} 
+                  height={300}
+                  className='w-auto h-auto '
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
                 />
               </div>
             </Link>

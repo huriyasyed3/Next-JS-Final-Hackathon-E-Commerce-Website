@@ -15,15 +15,19 @@ export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<Product[]>([]);
 
   useEffect(() => {
-    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    console.log('Stored Wishlist:', storedWishlist); 
-    setWishlist(storedWishlist);
+    if (typeof window !== 'undefined') {
+      const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+      console.log('Stored Wishlist:', storedWishlist); 
+      setWishlist(storedWishlist);
+    }
   }, []);
 
   const handleRemove = (product: Product) => {
     const newWishlist = wishlist.filter((item) => item.id !== product.id);
     setWishlist(newWishlist);
-    localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+    }
   };
 
   return (
