@@ -10,10 +10,10 @@ import Link from 'next/link';
 import allProductImg from '../../../public/Product.png';
 
 // ✅ Dynamic Imports
-const SearchAndFilter = dynamic(() => import('@/components/SearchAndFilter'));
-const LoadingComponent = dynamic(() => import('@/components/ui/LoadingAnimation'));
-const Pagination = dynamic(() => import('@/components/Pagination'));
-const ReviewsAndRatings = dynamic(() => import('@/components/Reviews&Ratings'));
+const SearchAndFilter = dynamic(() => import('@/components/SearchAndFilter'), { ssr: false });
+const LoadingComponent = dynamic(() => import('@/components/ui/LoadingAnimation'), { ssr: false });
+const Pagination = dynamic(() => import('@/components/Pagination'), { ssr: false });
+const ReviewsAndRatings = dynamic(() => import('@/components/Reviews&Ratings'), { ssr: false });
 
 interface Product {
   id: string;
@@ -33,7 +33,6 @@ export default function ProductsFetchPage() {
   const itemsPerPage = 8;
   const router = useRouter();
 
-  // ✅ Fetch Products from Sanity API
   useEffect(() => {
     const fetchData = async () => {
       const query = `*[_type == "product"]{
@@ -59,33 +58,29 @@ export default function ProductsFetchPage() {
     fetchData();
   }, []);
 
-  // ✅ Wishlist Handling (Local Storage)
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedWishlist = JSON.parse(window.localStorage.getItem('wishlist') || '[]');
+      const savedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
       setWishList(savedWishlist);
     }
   }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }
   }, [wishlist]);
 
-  // ✅ Scroll to Top on Page Change
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
     }
   }, [currentPage]);
 
-  // ✅ Apply Discount
   const applyDiscount = (price: number) => {
     return (price * 0.9).toFixed(2);
   };
 
-  // ✅ Wishlist Toggle
   const toggleWishlist = (product: Product) => {
     setWishList((prevWishlist) => {
       const updatedWishlist = [...prevWishlist];
@@ -99,19 +94,17 @@ export default function ProductsFetchPage() {
     });
   };
 
-  // ✅ Add to Cart & Redirect
   const handleAddToCart = (product: Product) => {
     setWishList((prevCart) => {
       const updatedCart = [...prevCart, product];
       if (typeof window !== 'undefined') {
-        window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
       }
       return updatedCart;
     });
     router.push('/CartComponent');
   };
 
-  // ✅ Pagination Logic
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -131,6 +124,10 @@ export default function ProductsFetchPage() {
           src={allProductImg || '/placeholder.svg'}
           alt="All Products"
           className="w-full h-[209px] object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+          width={800}
+          height={209}
         />
         <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl font-extrabold text-center tracking-wide text-white bg-opacity-50 p-4 rounded">
           All Products Collection
@@ -143,7 +140,7 @@ export default function ProductsFetchPage() {
         {currentProducts.map((product) => (
           <div
             key={product.id}
-            className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300"
+            className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300 flex flex-col h-full"
           >
             <Link href={`/ProductDetailPage/${product.id}`}>
               <div className="relative w-full h-48">
@@ -151,17 +148,14 @@ export default function ProductsFetchPage() {
                   src={product.imageUrl || '/placeholder-image.png'}
                   alt={product.name || 'Product Image'}
                   priority
-                  width={500} 
-                  height={300}
-                  className='w-auto h-auto '
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
             </Link>
-            <div className="p-4">
+            <div className="p-4 flex-grow flex flex-col justify-between">
               <h2 className="text-xl font-semibold">{product.name}</h2>
               <p className="text-gray-700 mt-2">Price: €{applyDiscount(product.price)}</p>
-
               <div className="flex items-center space-x-4 mt-2">
                 <button
                   className="bg-gradient-to-r from-purple-900 to-pink-500 text-white rounded-lg transition-transform shadow-md duration-300 hover:scale-110 px-4 py-2"
@@ -169,16 +163,11 @@ export default function ProductsFetchPage() {
                 >
                   Add to cart
                 </button>
-
                 <button
                   className="p-2 rounded-full bg-transparent hover:scale-110 transition-transform duration-200"
                   onClick={() => toggleWishlist(product)}
                 >
-                  <FiHeart
-                    className={`w-6 h-6 ${
-                      wishlist.some((item) => item.id === product.id) ? 'text-red-500' : 'text-gray-400'
-                    }`}
-                  />
+                  <FiHeart className={`w-6 h-6 ${wishlist.some((item) => item.id === product.id) ? 'text-red-500' : 'text-gray-400'}`} />
                 </button>
               </div>
             </div>
@@ -186,12 +175,7 @@ export default function ProductsFetchPage() {
         ))}
       </div>
 
-      <Pagination
-        totalItems={filteredProducts.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      <Pagination totalItems={filteredProducts.length} itemsPerPage={itemsPerPage} currentPage={currentPage} onPageChange={handlePageChange} />
       <ReviewsAndRatings />
     </div>
   );
