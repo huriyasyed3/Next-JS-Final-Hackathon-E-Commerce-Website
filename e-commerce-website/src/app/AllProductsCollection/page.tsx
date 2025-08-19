@@ -148,8 +148,8 @@ export default function ProductsFetchPage() {
                   src={product.imageUrl || '/placeholder-image.png'}
                   alt={product.name || 'Product Image'}
                   priority
-                  layout="fill"
-                  objectFit="cover"
+                  fill // ✅ ye sahi hai ab
+                  style={{ objectFit: "cover" }} // ✅ new way to set object-fit
                 />
               </div>
             </Link>

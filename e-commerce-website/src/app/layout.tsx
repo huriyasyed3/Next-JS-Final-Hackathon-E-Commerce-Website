@@ -32,9 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <HeaderSection/>
-        <SignedOut>
-            <SignInButton />
-          </SignedOut>
+        {/* <SignedOut> */}
+            {/* <SignInButton /> */}
+          {/* </SignedOut> */}
         {children}
         <Footer/>
       </body>
