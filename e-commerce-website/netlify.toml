@@ -1,7 +1,7 @@
 [build]
-  base = "e-commerce-website"
-  command = "npm run build"
-  publish = ".next"
+  command = "npm install --legacy-peer-deps && npm run build"
+  publish = "e-commerce-website/.next"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[build.environment]
+  NETLIFY_USE_NPM = "true"
+  NPM_FLAGS = "--legacy-peer-deps"
