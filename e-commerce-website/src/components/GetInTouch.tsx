@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image'
-import features from '../../public/Features.png'
+
 
 const GetInTouch = () => {
   return (
@@ -26,7 +26,7 @@ const GetInTouch = () => {
       </div>
       <div className='w-full md:w-[720px]'>
         <Image
-          src={features}
+          src='/Features.png'
           alt='sofa'
           width={720}
           height={603}

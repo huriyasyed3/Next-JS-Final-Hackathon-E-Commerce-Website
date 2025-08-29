@@ -2,7 +2,6 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image'
-import chair from '../../public/chair.png'
 import { useRouter } from 'next/navigation'
 
 const HeroSection = () => {
@@ -39,7 +38,7 @@ const HeroSection = () => {
         {/* Image Section */}
         <div className="hidden md:flex justify-center md:justify-end">
           <Image
-            src={chair}
+            src='/chair.png'
             alt="chair-image"
             className="w-3/4 md:w-full object-contain"
             priority
