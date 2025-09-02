@@ -1,7 +1,10 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import LoadingComponent from "@/components/ui/LoadingAnimation";
 
 interface Rate {
   rate_id: string;
@@ -11,7 +14,8 @@ interface Rate {
   };
 }
 
-export default function OrderConfirmation() {
+// 👇 Inner component jisme useSearchParams use ho raha hai
+function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,7 +32,7 @@ export default function OrderConfirmation() {
     try {
       const shipmentDetails = {
         shipment: {
-          carrier_id: "se-1873382", // Replace with your carrier ID
+          carrier_id: "se-1873382",
           from: {
             name: "John Doe",
             company_name: "Example Corp",
@@ -78,7 +82,7 @@ export default function OrderConfirmation() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-      <motion.div 
+      <motion.div
         className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md text-center"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -87,7 +91,9 @@ export default function OrderConfirmation() {
         {loading ? (
           <div className="flex flex-col items-center">
             <div className="animate-spin rounded-full border-t-4 border-green-500 border-solid h-16 w-16 mb-4"></div>
-            <h1 className="text-xl font-semibold text-gray-700">Verifying your payment...</h1>
+            <h1 className="text-xl font-semibold text-gray-700">
+              Verifying your payment...
+            </h1>
           </div>
         ) : (
           <motion.div
@@ -95,10 +101,12 @@ export default function OrderConfirmation() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <h1 className="text-2xl font-bold text-green-600">🎉 Order Placed Successfully! 🎉</h1>
+            <h1 className="text-2xl font-bold text-green-600">
+              🎉 Order Placed Successfully! 🎉
+            </h1>
             <p className="text-gray-600 mt-2">Thank you for your purchase.</p>
-            
-            <button 
+
+            <button
               className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition"
               onClick={fetchShippingRates}
             >
@@ -132,5 +140,14 @@ export default function OrderConfirmation() {
         )}
       </motion.div>
     </div>
+  );
+}
+
+// 👇 Suspense wrapper yahan lagaya gaya hai
+export default function OrderConfirmation() {
+  return (
+    <Suspense fallback={<LoadingComponent/>}>
+      <OrderConfirmationContent />
+    </Suspense>
   );
 }
