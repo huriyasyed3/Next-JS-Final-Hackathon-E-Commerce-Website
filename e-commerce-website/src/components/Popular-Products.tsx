@@ -1,10 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import lucylamp from '../../public/lucylamp.png'
-import chair from '../../public/chair.png'
-import sofa from '../../public/sofa.png'
-import dandyChair from '../../public/dandyChair.png'
-import vaseSet from '../../public/VaseSet.png'
+
 
 import { Button } from './ui/button'
 const PopularProducts = () => {
@@ -15,32 +11,32 @@ const PopularProducts = () => {
     <div className='grid grid-cols-2 md:grid-cols-3 gap-4 border-none pt-6'>
   {/* First Item */}
   <div className='w-[630px] h-[375px] hidden md:block'>
-    <Image src={sofa} alt='Sofa' className=' '></Image>
+    <Image src='/sofa.png' alt='Sofa' width={600} height={500} className='h-[375px] ml-4' ></Image>
     <p className='font-thin text-sm md:text-xl lg:text-xl pt-4 text-[#2A254B]'>The Poplar suede sofa</p>
     <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£980</h3>
   </div>
 
   {/* Second Item */}
   <div className=' w-[305px] h-[375px] ml-52 hidden md:block'>
-    <Image src={chair} alt='chair'width={500} height={500} className='h-[375px] ml-4' ></Image>
+    <Image src='/chair.png' alt='chair'width={500} height={500} className='h-[375px] ml-4' ></Image>
     <p className='font-thin text-sm md:text-xl lg:text-xl pt-4 text-[#2A254B]'>The Dandy chair</p>
     <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£250</h3>
   </div>
 
   {/* Third Item */}
   <div className='w-[305px] h-[375px] ml-28 hidden md:block'>
-    <Image src={dandyChair} alt='Dandy-Chair' className=' '></Image>
+    <Image src='/dandyChair.png' alt='Dandy-Chair'width={500} height={500} className='h-[375px] ml-4' ></Image>
     <p className='font-thin text-sm md:text-xl lg:text-xl pt-4 text-[#2A254B]'>The Dandy chair</p>
     <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£250</h3>
   </div>
   {/* mobile screen */}
   <div className='md:hidden ml-4 '>
-  <Image src={lucylamp} alt='Lucy-Lamp' width={200} height={251} className="object-cover " />
+  <Image src='/lucylamp.png' alt='Lucy-Lamp' width={200} height={251} className="object-cover " />
   <p className='font-thin text-sm md:text-xl lg:text-xl pt-4 text-[#2A254B]'>The Lucy Lamp</p>
   <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£399</h3>
   </div>
   <div className='md:hidden ml-4 '>
-  <Image src={vaseSet} alt='VaseSet' width={200} height={251} className="object-cover " />
+  <Image src='/VaseSet.png' alt='VaseSet' width={200} height={251} className="object-cover " />
   <p className='font-thin text-sm md:text-xl lg:text-xl pt-4 text-[#2A254B]'>Rustic Vase Set</p>
   <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£155</h3>
   </div>
