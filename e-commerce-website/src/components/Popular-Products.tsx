@@ -4,7 +4,7 @@ import lucylamp from '../../public/lucylamp.png'
 import chair from '../../public/chair.png'
 import sofa from '../../public/sofa.png'
 import dandyChair from '../../public/dandyChair.png'
-import VaseSet from '../../public/VaseSet.png'
+import vaseSet from '../../public/VaseSet.png'
 
 import { Button } from './ui/button'
 const PopularProducts = () => {
@@ -40,7 +40,7 @@ const PopularProducts = () => {
   <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£399</h3>
   </div>
   <div className='md:hidden ml-4 '>
-  <Image src={VaseSet} alt='VaseSet' width={200} height={251} className="object-cover " />
+  <Image src={vaseSet} alt='VaseSet' width={200} height={251} className="object-cover " />
   <p className='font-thin text-sm md:text-xl lg:text-xl pt-4 text-[#2A254B]'>Rustic Vase Set</p>
   <h3 className='font-thin text-sm md:text-xl lg:text-xl text-[#2A254B]'>£155</h3>
   </div>
