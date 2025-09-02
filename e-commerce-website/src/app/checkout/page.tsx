@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
 import { loadStripe } from '@stripe/stripe-js'
-import { Product } from "../../../types/product"
+import { Product } from "../../types/product"
 import ShippingRatesPage from '../Ship/page'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)

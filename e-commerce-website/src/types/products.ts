@@ -11,4 +11,5 @@ export interface Product{
     reviews: number
     imageUrl: string
     discount: number
+    features?: string[];
   }
