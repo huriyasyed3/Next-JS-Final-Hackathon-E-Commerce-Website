@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image';
+import about2 from '../../public/about2.png'
 const Service = () => {
   return (
     <>
@@ -9,7 +10,7 @@ const Service = () => {
            <div className='flex flex-col md:flex-row  '>
         <div className=''>
           <Image 
-            src='/about2.png'
+            src={about2}
             alt='Sofa'
             width={720}
             height={603}

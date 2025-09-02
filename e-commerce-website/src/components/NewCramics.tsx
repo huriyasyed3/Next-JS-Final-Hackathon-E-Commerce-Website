@@ -1,6 +1,10 @@
 import React from 'react'
 import { Card, CardContent, CardDescription,CardHeader, CardTitle,} from "@/components/ui/card"
 import Image from 'next/image'
+import VaseSet from '../../public/VaseSet.png'
+import chair from '../../public/chair.png'
+import silkyvase from '../../public/silkyvase.png'
+import lucylamp from '../../public/lucylamp.png'
 import { Button } from './ui/button'
 import Link from 'next/link'
 
@@ -13,7 +17,7 @@ const NewCramics = () => {
          <Card className="h-full w-full max-w-sm  border-none">
 <CardHeader >
     <div className="aspect-[3/4] relative overflow-hidden rounded-t-lg">
-      <Image src='/chair.png' alt='Chair' className="object-cover" fill/>
+      <Image src={chair} alt='Chair' className="object-cover" fill/>
       </div>
 </CardHeader>
 <CardContent className="p-6">
@@ -26,7 +30,7 @@ const NewCramics = () => {
 <Card className="h-full w-full max-w-sm border-none">
 <CardHeader >
     <div className="aspect-[3/4] relative overflow-hidden rounded-t-lg">
-      <Image src='/VaseSet.png' alt='VaseSet' className="object-cover" fill/>
+      <Image src={VaseSet} alt='VaseSet' className="object-cover" fill/>
       </div>
       </CardHeader>
 <CardContent className="p-6 ">
@@ -38,7 +42,7 @@ const NewCramics = () => {
 <Card className="h-full w-full max-w-sm border-none">
 <CardHeader >
     <div className="aspect-[3/4] relative overflow-hidden rounded-t-lg">
-      <Image src='/silkyvase.png' alt='SilkyVase' className="object-cover" fill/>
+      <Image src={silkyvase} alt='SilkyVase' className="object-cover" fill/>
       </div>
       </CardHeader>
 <CardContent className="p-6">
@@ -50,7 +54,7 @@ const NewCramics = () => {
 <Card className="h-full w-full max-w-sm border-none">
 <CardHeader >
     <div className="aspect-[3/4] relative overflow-hidden rounded-t-lg">
-      <Image src='lucylamp.png' alt='Lucy-Lamp' className="object-cover" fill/>
+      <Image src={lucylamp} alt='Lucy-Lamp' className="object-cover" fill/>
       </div>
       </CardHeader>
 <CardContent className="p-6">
