@@ -1,12 +1,14 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { TrackingData } from "../../../type";
+import LoadingComponent from '@/components/ui/LoadingAnimation';
 
-export default function TrackShipment() {
+function TrackShipmentContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -119,5 +121,13 @@ export default function TrackShipment() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function TrackShipment() {
+  return (
+    <Suspense fallback={<LoadingComponent />}>
+      <TrackShipmentContent />
+    </Suspense>
   );
 }
