@@ -1,5 +1,21 @@
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   images: {
+//     remotePatterns: [
+//       {
+//         protocol: 'https',
+//         hostname: 'cdn.sanity.io',
+//       },
+//     ],
+//   },
+// };
+
+// module.exports = nextConfig;
+
+
 const nextConfig = {
+
+  trailingSlash: true,
   images: {
     remotePatterns: [
       {
@@ -9,6 +25,3 @@ const nextConfig = {
     ],
   },
 };
-
-module.exports = nextConfig;
-
