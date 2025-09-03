@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0", // ✅ Yeh line add karo
+    
     "target": "ES2017",
     "types": ["node"],
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -10,7 +10,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler", // ✅ "node" ki jagah "bundler" karo
+    "moduleResolution": "bundler", 
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
